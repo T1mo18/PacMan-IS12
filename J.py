@@ -6,14 +6,13 @@ from msvcrt import getch
 def player_print():
 	while True:
 		key = ord(getch())
-		if key == 65
+		if key == 65:
 			break
-		elif key == 68
+		elif key == 68:
 			select()
-		elif key == 83
+		elif key == 83:
 			break
-		if key == 87
-
+		if key == 87:
 player_print()			
 		
 def player_next():
