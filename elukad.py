@@ -13,8 +13,8 @@ def elukas_next():
 	# Get pacman position
 	pacman = player_xy()
 	
-	# Search pacman from right
-	if pacman[0] > x and pacman[1] == y:
+	# Search pacman from right/top
+	if pacman[0] > x and pacman[1] <= y:
 		# Look right
 		if kaart_xy(x+1, y) == 1:
 			x = x+1
@@ -33,8 +33,8 @@ def elukas_next():
 			y = y+1
 			
 
-	# Search pacman from left
-	if pacman[0] < x and pacman[1] == y:
+	# Search pacman from left/top
+	if pacman[0] < x and pacman[1] <= y:
 		# Look left
 		if kaart_xy(x-1, y) == 1:
 			x = x-1
@@ -53,8 +53,8 @@ def elukas_next():
 			y = y+1
 			
 
-	# Search pacman from top
-	if pacman[0] == x and pacman[1] < y:
+	# Search pacman from top/right
+	if pacman[0] <= x and pacman[1] <= y:
 		# Look up
 		if kaart_xy(x, y-1) == 1:
 			x = x
@@ -72,8 +72,8 @@ def elukas_next():
 			x = x+1
 			y = y
 
-	# Search pacman from bottom
-	if pacman[0] == x and pacman[1] > y:
+	# Search pacman from bottom/left
+	if pacman[0] >= x and pacman[1] >= y:
 		# Look down
 		if kaart_xy(x, y+1) == 1:
 			x = x
