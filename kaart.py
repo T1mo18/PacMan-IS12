@@ -28,4 +28,3 @@ def kaart_print():
 def kaart_xy(x,y):
 	print kaart[y-1] [x-1]
 
-kaart_print()
