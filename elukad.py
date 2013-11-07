@@ -1,6 +1,6 @@
 import time
 
-x = 100
+x = 3
 y = 2
 suund = 'down'
 
