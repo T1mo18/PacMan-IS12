@@ -1,4 +1,5 @@
 import sys
+
 kaart= [
 "#######################",
 "#**********#**********#",
@@ -29,7 +30,8 @@ kaart= [
 def kaart_print():
 	sys.stdout.write("\033[1;1H")
 	for rida in kaart:
-		print rida
+		print ('\033[37m') +rida
 
 def kaart_xy(x,y):
-	print kaart[y-1] [x-1]
+	return kaart[y-1] [x-1] != '#'
+	
