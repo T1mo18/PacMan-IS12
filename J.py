@@ -1,29 +1,28 @@
 #!/usr/bin/env python 
 #-*- coding utf-8 -*-
 
-from msvcrt import getch
+import pygame, sys
+from pygame.locals import *
+
+x,y=1,1
+movex,movey=1,1
+#	pygame.key.set_repeat(50, 50)
 
 def player_print():
-	while True:
-		key = ord(getch())
-		if key == 65:
-			break
-		elif key == 68:
-			select()
-		elif key == 83:
-			break
-		if key == 87:
+	for event in pygame.event.get():
+		if event.type==QUIT:
+			pygame.quit()
+			sys.exit()
+		if event.type==KEYDOWN:
+			if event.key==K_LEFT:
+				print "Left"
+			elif event.key==K_RIGHT:
+				print "Right"
+			elif event.key==K_UP:
+				print "Up"
+			elif event.key==K_DOWN:
+				print "Down"
+	x=movex
+	y=movey
+
 player_print()			
-		
-def player_next():
-
-#A=65 D=68 S=83 W=87
-
-
-
-
-
-
-
-def player_xy():
-	pass
