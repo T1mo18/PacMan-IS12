@@ -20,16 +20,16 @@ def elukas_move(direction):
 			x = x+1
 			y = y
 			suund = 'right'
-		# Look up
-		elif kaart_xy(x, y-1) == 1:
-			x = x
-			y = y-1
-			suund = 'up'
 		# Look down
 		elif kaart_xy(x, y+1) == 1:
 			x = x
 			y = y+1
 			suund = 'down'	
+		# Look up
+		elif kaart_xy(x, y-1) == 1:
+			x = x
+			y = y-1
+			suund = 'up'
 		# Look left
 		elif kaart_xy(x-1, y) == 1:
 			x = x-1
@@ -48,7 +48,7 @@ def elukas_move(direction):
 			x = x
 			y = y-1
 			suund = 'up'
-		# Look down
+		# Look adown
 		elif kaart_xy(x, y+1) == 1:
 			x = x
 			y = y+1
@@ -113,24 +113,13 @@ def elukas_next():
 	px = pacman[0]
 	py = pacman[1]
 
-	# Search pacman from right
+	# Search pacman from right/bottom
 	if px >= x and py >= y:
-		elukas_move('right');
+		elukas_move('right')
 
-
-	# Search pacman from left
-	if px <= x and py == y:
-		elukas_move('left');
-
-
-	# Search pacman from top
-	if px == x and py <= y:
-		elukas_move('top');
-
-	# Search pacman from bottom
-	if px == x and py >= y:
-		elukas_move('bottom');
-
+	# Search pacman from left/top
+	elif px <= x and py <= y:
+		elukas_move('left')
 
 
 def elukas_xy():
