@@ -30,3 +30,5 @@ def kaart_print():
 def kaart_xy(x,y):
 	return kaart[y-1] [x-1] != '#'
 	
+#print kaart_xy(2,3)
+	
