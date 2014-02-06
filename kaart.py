@@ -22,13 +22,11 @@ kaart= [
 ]
 
 def kaart_print():
+	global kaart
 	sys.stdout.write("\033[1;1H")
 	for rida in kaart:
 		print ('\033[37m') + rida
-#kaart_print()
 
 def kaart_xy(x,y):
+	global kaart
 	return kaart[y-1] [x-1] != '#'
-	
-#print kaart_xy(2,3)
-	
