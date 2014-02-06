@@ -1,5 +1,5 @@
-import time
-from kaart import kaart_xy
+from kaart import *
+from mangija import *
 
 x = 3
 y = 2
