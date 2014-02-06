@@ -1,5 +1,5 @@
 from kaart import *
-from mangija import *
+from player import *
 
 x = 3
 y = 2
