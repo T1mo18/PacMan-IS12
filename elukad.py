@@ -6,12 +6,17 @@ y = 2
 suund = 'down'
 
 def elukas_print():
+	global x
+	global y
+	
 	elukas = "\033[" + str(y) + ";" + str(x) + "H$"
 	elukas = "\033[91m" + elukas + "\033[0m"
 
 	print elukas
 
 def elukas_move(direction):
+	global x
+	global y
 
 	if direction == 'right':
 
@@ -107,27 +112,36 @@ def elukas_move(direction):
 
 
 def elukas_next():
+	global x
+	global y
+
 	# Get pacman position
 	pacman = player_xy()
 
 	px = pacman[0]
 	py = pacman[1]
 
-	# Search pacman from right/bottom
-	if px >= x and py >= y:
+	if px == x and py > y:
+		elukas_move('down')
+	elif px == x and py < y:
+		elukas_move('up')
+	elif px > x and py == y:
 		elukas_move('right')
-
-	# Search pacman from left/top
-	elif px <= x and py <= y:
+	elif px < x and py == y:
 		elukas_move('left')
 
-	# Search pacman from top
-	elif px == x and py <= y:
-		elukas_move('up')
-
-	# Search pacman from bottom
-	elif px == x and py >= y:
+	elif px >= x and py >= y and ((py-y) > (px-x)):
+		elukas_move('right')
+	elif px >= x and py >= y and ((py-y) < (px-x)):
 		elukas_move('down')
+
+	elif px <= x and py <= y and ((x-px) > (y-py)):
+		elukas_move('left')
+	elif px <= x and py <= y and ((x-px) < (y-py)):
+		elukas_move('right')
+		
+		
+
 
 def elukas_xy():
 	global x
