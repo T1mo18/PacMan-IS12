@@ -5,7 +5,7 @@ from kaart import kaart_print
 from elukad import elukas_print
 from player import player_print
 import time
-)
+
 
 
 
