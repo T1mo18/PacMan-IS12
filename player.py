@@ -5,6 +5,9 @@ x = 10
 y = 10
 
 def player_print():
+	global x
+	global y
+	
 	player = "\033["+str(y)+";"+str(x)+"H" + "G"
 	player = "\033[93m" + player + "\033[0m"
 
@@ -18,21 +21,18 @@ def player_next():
 	global x
 	global y
 	
-	while True:
-		mov = raw_input("Sisesta liikumissuund (j,l,i,k) -> ")
-		if mov == "i":
-			y = y + 1
-			print player_next
-		elif mov == "j":
-			x = x - 1
-			print player
-		elif mov == "l":
-			x = x + 1
-			print player
-		elif mov == "k":
-			y = y - 1
-			print player
+	mov = raw_input("Sisesta liikumissuund (j,l,i,k) -> ")
+	if mov == "i":
+		y = y - 1
+	elif mov == "j":
+		x = x - 1
+	elif mov == "l":
+		x = x + 1
+	elif mov == "k":
+		y = y + 1
 		
 def player_xy():
     global x
     global y
+    
+    return [x, y]
