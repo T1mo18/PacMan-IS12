@@ -1,9 +1,11 @@
 from kaart import *
 from player import *
 
-x = 3
+x = 2
 y = 2
-suund = 'down'
+pattern = []
+force_dir = 0
+force_start = 0
 
 def elukas_print():
 	global x
@@ -14,102 +16,157 @@ def elukas_print():
 
 	print elukas
 
-def elukas_move(direction):
+def set_direction():
 	global x
 	global y
+	global direction
+	global pattern
+	global force_dir
+	
+	player = player_xy()
+	px = player[0]
+	py = player[1]
+	
+	if not force_dir:
+		if px > x and py > y:
+			direction = 'right/down'
+		elif px < x and py < y:
+			direction = 'left/up'
+		elif px == x and py < y:
+			direction = 'up'
+		elif px == x and py > y:
+			direction = 'down'
+		elif px > x and py == y:
+			direction = 'right'
+		elif px < x and py == y:
+			direction = 'left'
+	else:
+		direction = force_dir
+		
+	return direction
 
-	if direction == 'right':
+def elukas_move(move):
+	global x
+	global y
+	global force_dir
+	global force_start
 
-		# Look right
-		if kaart_xy(x+1, y) == 1:
-			x = x+1
-			y = y
-			suund = 'right'
-		# Look down
-		elif kaart_xy(x, y+1) == 1:
-			x = x
-			y = y+1
-			suund = 'down'	
-		# Look up
-		elif kaart_xy(x, y-1) == 1:
-			x = x
-			y = y-1
-			suund = 'up'
-		# Look left
-		elif kaart_xy(x-1, y) == 1:
-			x = x-1
-			y = y
-			suund = 'left'	
+	player = player_xy()
+	px = player[0]
+	py = player[1]
+		
+	if len(pattern) > 4:
+		if pattern[len(pattern)-1] == pattern[len(pattern)-3] and pattern[len(pattern)-2] == pattern[len(pattern)-4] and pattern[len(pattern)-2] != pattern[len(pattern)-1] and pattern[len(pattern)-2] == pattern[len(pattern)-4]:
+			if direction == 'right':
+				force_dir = 'left'
+			if direction == 'down':
+				force_dir = 'up'
+			if direction == 'left':
+				force_dir == 'right'
+			if direction == 'right/down':
+				force_dir == 'left/up'
+			if direction == 'left/up':
+				force_dir == 'right/down'
 
-	if direction == 'left':
+	if len(pattern) < force_start+7:
+		force_dir = 0
+	
+	if force_dir:
+		force_start = len(pattern)
+		move = force_dir
+				
+	if move == 'right/down':
+		if kaart_xy(x+1, y):
+			x += 1		
+			moved = 'right'
+		elif kaart_xy(x, y+1):
+			y += 1
+			moved = 'down'
+		elif kaart_xy(x-1, y):
+			x -= 1
+			moved = 'left'
+		elif kaart_xy(x, y-1):
+			y -= 1
+			moved = 'up'
 
-		# Look left
-		if kaart_xy(x-1, y) == 1:
-			x = x-1
-			y = y
-			suund = 'left'	
-		# Look up
-		elif kaart_xy(x, y-1) == 1:
-			x = x
-			y = y-1
-			suund = 'up'
-		# Look down
-		elif kaart_xy(x, y+1) == 1:
-			x = x
-			y = y+1
-			suund = 'down'	
-		# Look right
-		elif kaart_xy(x+1, y) == 1:
-			x = x+1
-			y = y
-			suund = 'right'
+	if move == 'left/up':
+		if kaart_xy(x-1, y):
+			x -= 1
+			moved = 'left'
+		elif kaart_xy(x, y-1):
+			y -= 1
+			moved = 'up'
+		elif kaart_xy(x, y+1):
+			y += 1
+			moved = 'down'
+		elif kaart_xy(x+1, y):
+			x += 1
+			moved = 'right'
 
-	if direction == 'up':
+	if move == 'down':	
+		
+		if kaart_xy(x, y+1):
+			y += 1
+			moved = 'down'
+		elif kaart_xy(x+1, y):
+			x += 1
+			moved = 'right'
+		elif kaart_xy(x-1, y):
+			x -= 1
+			moved = 'left'
+		elif kaart_xy(x, y-1):
+			y -= 1
+			moved = 'down'
 
-		# Look up
-		if kaart_xy(x, y-1) == 1:
-			x = x
-			y = y-1
-			suund = 'up'
-		# Look left
-		elif kaart_xy(x-1, y) == 1:
-			x = x-1
-			y = y
-			suund = 'left'	
-		# Look right
-		elif kaart_xy(x+1, y) == 1:
-			x = x+1
-			y = y
-			suund = 'right'
-		# Look down
-		elif kaart_xy(x, y+1) == 1:
-			x = x
-			y = y+1
-			suund = 'down'	
+	if move == 'up':	
+		if kaart_xy(x, y-1):
+			y -= 1			
+			moved = 'up'
+		elif kaart_xy(x-1, y):
+			x -= 1
+			moved = 'left'
+		elif kaart_xy(x, y+1):
+			y += 1
+			moved = 'down'
+		elif kaart_xy(x+1, y):
+			x += 1		
+			moved = 'right'
 
-	if direction == 'down':
+	if move == 'left':	
+		if kaart_xy(x-1, y):
+			x -= 1
+			moved = 'left'	
+		elif kaart_xy(x, y-1):
+			y -= 1			
+			moved = 'up'
+		elif kaart_xy(x, y+1):
+			y += 1
+			moved = 'down'
+		elif kaart_xy(x+1, y):
+			x += 1		
+			moved = 'right'
 
-		# Look down
-		if kaart_xy(x, y+1) == 1:
-			x = x
-			y = y+1
-			suund = 'down'
-		# Look left
-		elif kaart_xy(x-1, y) == 1:
-			x = x-1
-			y = y
-			suund = 'left'	
-		# Look right
-		elif kaart_xy(x+1, y) == 1:
-			x = x+1
-			y = y
-			suund = 'right'
-		# Look up
-		elif kaart_xy(x, y-1) == 1:
-			x = x
-			y = y-1
-			suund = 'up'
-
+	if move == 'right':	
+		if kaart_xy(x+1, y):
+			x += 1		
+			moved = 'right'	
+		elif kaart_xy(x-1, y):
+			x -= 1
+			moved = 'left'	
+		elif kaart_xy(x, y-1):
+			y -= 1			
+			moved = 'up'
+		elif kaart_xy(x, y+1):
+			y += 1
+			moved = 'down'
+		elif kaart_xy(x-1, y):
+			x -= 1
+			moved = 'left'				
+		elif kaart_xy(x+1, y):
+			x += 1		
+			moved = 'right'
+			
+	pattern.append(moved)	
 
 def elukas_next():
 	global x
@@ -120,28 +177,11 @@ def elukas_next():
 
 	px = pacman[0]
 	py = pacman[1]
-
-	if px == x and py > y:
-		elukas_move('down')
-	elif px == x and py < y:
-		elukas_move('up')
-	elif px > x and py == y:
-		elukas_move('right')
-	elif px < x and py == y:
-		elukas_move('left')
-
-	elif px >= x and py >= y and ((py-y) > (px-x)):
-		elukas_move('right')
-	elif px >= x and py >= y and ((py-y) < (px-x)):
-		elukas_move('down')
-
-	elif px <= x and py <= y and ((x-px) > (y-py)):
-		elukas_move('left')
-	elif px <= x and py <= y and ((x-px) < (y-py)):
-		elukas_move('right')
-		
-		
-
+	
+	# MOVE 
+	movement = set_direction()
+	elukas_move(movement)
+	
 
 def elukas_xy():
 	global x
