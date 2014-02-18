@@ -1,5 +1,7 @@
 import sys
 
+from player import *
+
 kaart= [
 "##############################################",
 "#.....................##.....................#",
@@ -26,6 +28,15 @@ def kaart_print():
 	sys.stdout.write("\033[1;1H")
 	for rida in kaart:
 		print ('\033[37m') + rida
+		
+def kaart_clear(x,y):
+	global kaart
+	if kaart[y-1] [x-1] == "." and player_xy() == [x,y]:
+		kaart1 = kaart[y-1]
+		kaart1 = list(kaart1)
+		kaart1[x] = str(" ")
+		kaart[y-1] = kaart1
+		kaart[y-1] = "".join(kaart[y-1])
 
 def kaart_xy(x,y):
 	global kaart
